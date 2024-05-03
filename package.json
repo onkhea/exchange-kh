@@ -1,4 +1,10 @@
+
 {
+  "name": "exchange-rate-api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@sparticuz/chromium": "^123.0.0",
     "@sparticuz/chromium-min": "^123.0.0",
@@ -8,13 +14,5 @@
     "express": "^4.19.2",
     "puppeteer": "^21.9.0",
     "puppeteer-core": "^22.6.2"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.1.4"
-  },
-  "scripts": {
-    "dev": "node index.js"
   }
 }
