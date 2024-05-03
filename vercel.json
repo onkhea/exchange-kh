@@ -5,7 +5,7 @@
     }
   },
   "routes": [
-    { "src": "/data", "dest": "/api/data.js" }
+    { "src": "/data", "dest": "./index.js" }
   ]
 }
 
