@@ -6,24 +6,48 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
+// Constants
+const CHROMIUM_PATH = "https://vomrghiulbmrfvmhlflk.supabase.co/storage/v1/object/public/chromium-pack/chromium-v123.0.0-pack.tar";
+
+// Function to get browser instance
+async function getBrowser() {
+    if (process.env.NODE_ENV === "production") {
+        const chromium = require("@sparticuz/chromium-min");
+        const puppeteerCore = require("puppeteer-core");
+        
+        const executablePath = await chromium.executablePath(CHROMIUM_PATH);
+        
+        const browser = await puppeteerCore.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath,
+            headless: chromium.headless,
+        });
+        return browser;
+    } else {
+        const browser = await puppeteer.launch();
+        return browser;
+    }
+}
+
 app.get("/data", async (req, res) => {
   try {
     const today = new Date().toISOString().split("T")[0];
     const dateFilter = req.query.date || today;
-
-    const browser = await puppeteer.launch({
-      headless: "new",
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--single-process",
-        "--no-zygote",
-      ],
-      executablePath:
-        process.env.NODE_ENV === "production"
-          ? process.env.PUPEPTEER_EXECUTTABLE_PATH
-          : puppeteer.executablePath(),
-    });
+    const browser = await getBrowser();
+    // const browser = await puppeteer.launch({
+    //   headless: "new",
+    //   args: [
+    //     "--no-sandbox",
+    //     "--disable-setuid-sandbox",
+    //     "--single-process",
+    //     "--no-zygote",
+    //   ],
+    //   executablePath:
+    //     process.env.NODE_ENV === "production"
+    //       ? process.env.PUPEPTEER_EXECUTTABLE_PATH
+    //       : puppeteer.executablePath(),
+    // });
 
     const page = await browser.newPage();
 
