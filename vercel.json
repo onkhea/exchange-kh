@@ -1,7 +1,6 @@
 {
   "functions": {
     "api/data.js": {
-      "handler": "index.handler",
       "runtime": "nodejs14.x"
     }
   },
@@ -9,3 +8,4 @@
     { "src": "/data", "dest": "/api/data.js" }
   ]
 }
+
